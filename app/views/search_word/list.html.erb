@@ -1,0 +1,25 @@
+<h1>フォロー候補検索ワード一覧</h1>
+<form action="add">
+	<input type="text" name="add_word">
+	<button type="submit">追加</button>
+</form>
+<table>
+	<thead>
+		<tr>
+			<th>serch_word</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @serch_word_list.each do |serch_word_list| %>
+		<tr>
+			<td>
+				<%= serch_word_list.word %>
+			</td>
+			<td>
+				<button type="button" onclick="location.href='del?del_id=<%= serch_word_list.id %>'">del</button>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
