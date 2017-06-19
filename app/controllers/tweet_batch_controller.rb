@@ -18,16 +18,23 @@ class TweetBatchController < ApplicationController
 		# フォローするユーザーIDリスト：DB用
 		save_list = []
 		search_word = SearchWord.all.shuffle.first.word
-		@twitter.search(search_word, lang: "ja", count: take_count.to_i).take(200).each do |tweet|
+		@twitter.search(search_word, lang: "ja", count: take_count.to_i).take(50).each do |tweet|
+		puts Friend.where(friend_id: tweet.user.id).count	
 			if Friend.where(friend_id: tweet.user.id).count == 0 then
 				# ブロックされていたらエラーになるので一括フォローはきつい
 				begin
-					save_list << Friend.new(friend_id: tweet.user.id)
 					@twitter.follow(tweet.user.id)
-				rescue
-					next
+					save_list << Friend.new(friend_id: tweet.user.id)
+				rescue => e
+					puts "#{e.class}：#{tweet.user.name}"
+					if e.class.to_s == "Twitter::Error::TooManyRequests"
+						break
+					else 
+						next
+					end
 				end
 			end
+			puts "save_count：#{save_list.count}"
 			break if save_list.count >= take_count.to_i
 		end
 		Friend.import save_list
