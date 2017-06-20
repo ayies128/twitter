@@ -41,7 +41,7 @@ class TweetBatchController < ApplicationController
 	end
 
 	def afiri
-
+		@twitter.update(Tweet.all.shuffle.first.contents)
 	end
 
 	def everyday

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170618085301) do
+ActiveRecord::Schema.define(version: 20170620130445) do
 
   create_table "friends", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "フォローリスト" do |t|
     t.string "friend_id", limit: 127, null: false
@@ -22,6 +22,12 @@ ActiveRecord::Schema.define(version: 20170618085301) do
     t.string "word", limit: 127, null: false
     t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.timestamp "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+  end
+
+  create_table "tweets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text "contents"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
