@@ -41,7 +41,11 @@ class TweetBatchController < ApplicationController
 	end
 
 	def afiri
-		@twitter.update(Tweet.all.shuffle.first.contents)
+		begin
+			@twitter.update(Tweet.all.shuffle.first.contents)
+		rescue => e
+			puts "Error：#{e.class}"
+		end
 	end
 
 	def everyday
