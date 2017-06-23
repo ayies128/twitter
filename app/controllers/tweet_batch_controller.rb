@@ -55,14 +55,14 @@ class TweetBatchController < ApplicationController
 
   	# フォローしているユーザーをリセット
   	def friend_reset
-  		# テーブル全削除
-  		Friend.destroy_all
   		# 登録リスト
   		save_list = []
   		@twitter.friend_ids(@@my_twitter_id).each do |friend_id|
   			save_list << Friend.new(friend_id: friend_id)
   		end
-  		Friend.import save_list
+  		# テーブル全削除
+                Friend.destroy_all
+		Friend.import save_list
   	end
 
   end
