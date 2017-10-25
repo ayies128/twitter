@@ -52,7 +52,7 @@ class TweetBatchController < ApplicationController
 			keywords = ['健康', 'ファッション', '漫画', 'おもちゃ', 'レディース', 'フィギュア', 'ドラマ', 'PC', 'スマホ', 'メンズ', '筋トレ', '酒', '時計']
 			res = Amazon::Ecs.item_search(keywords.shuffle.first, {item_page: 1, country: 'jp', sort: 'salesrank'})
 			item = res.items.shuffle.first
-			tweet = "今Amazonで人気の商品をご紹介＾＾  #{item.get("ItemAttributes/Title")}  https://www.amazon.co.jp/gp/product/#{item.get("ASIN")}/?tag=kabk128-22"
+			tweet = "今Amazonで人気の商品をご紹介＾＾  \r#{item.get("ItemAttributes/Title")}  \rhttps://www.amazon.co.jp/gp/product/#{item.get("ASIN")}/?tag=kabk128-22"
 		else
 			tweet = Tweet.all.shuffle.first.contents
 		end
