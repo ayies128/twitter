@@ -57,3 +57,7 @@ gem 'twitter'
 gem 'activerecord-import'
 
 gem 'amazon-ecs'
+
+# デバッグ用
+gem 'ruby-debug-ide'
+gem 'debase'

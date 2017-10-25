@@ -41,16 +41,22 @@ class TweetBatchController < ApplicationController
 	end
 
 	def afiri
-		begin
+		inin = [1,2,3,4,5,6,7,8,9,10]
+		if inin.shuffle.first > 2
+			# Amazon Product Advertising API へのアクセスに必要なキーを設定
+			Amazon::Ecs.configure do |options|
+				options[:associate_tag] = "kabk128-22"
+				options[:AWS_access_key_id] = "AKIAIXSIY7KHU6TC2D7A"
+				options[:AWS_secret_key] = "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"
+			end
+			keywords = ['健康', 'ファッション', '漫画', 'おもちゃ', 'レディース', 'フィギュア', 'ドラマ', 'PC', 'スマホ', 'メンズ', '筋トレ', '酒', '時計']
+			res = Amazon::Ecs.item_search(keywords.shuffle.first, {item_page: 1, country: 'jp', sort: 'salesrank'})
+			item = res.items.shuffle.first
+			tweet = "今Amazonで人気の商品をご紹介＾＾  #{item.get("ItemAttributes/Title")}  https://www.amazon.co.jp/gp/product/#{item.get("ASIN")}/?tag=kabk128-22"
+		else
 			tweet = Tweet.all.shuffle.first.contents
-			puts tweet
-			@twitter.update(tweet)
-		rescue => e
-			puts "Error：#{e.class}"
 		end
-	end
-
-	def everyday
+		@twitter.update(tweet)
 	end
 
   	# フォローしているユーザーをリセット
