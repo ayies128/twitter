@@ -19,7 +19,7 @@ class TweetBatchController < ApplicationController
 		save_list = []
 		search_word = SearchWord.all.shuffle.first.word
 		@twitter.search(search_word, lang: "ja", count: take_count.to_i).take(50).each do |tweet|
-		puts Friend.where(friend_id: tweet.user.id).count	
+			puts Friend.where(friend_id: tweet.user.id).count
 			if Friend.where(friend_id: tweet.user.id).count == 0 then
 				# ブロックされていたらエラーになるので一括フォローはきつい
 				begin
