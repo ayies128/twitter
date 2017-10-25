@@ -56,6 +56,7 @@ class TweetBatchController < ApplicationController
 		else
 			tweet = Tweet.all.shuffle.first.contents
 		end
+		puts tweet
 		@twitter.update(tweet)
 	end
 
