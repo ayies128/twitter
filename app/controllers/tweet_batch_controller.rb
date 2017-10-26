@@ -53,7 +53,8 @@ class TweetBatchController < ApplicationController
 			search_index = ['Apparel','Automotive','Baby','Beauty','Books','Classical','DVD','Electronics','ForeignBooks','Grocery','HealthPersonalCare','Hobbies','HomeImprovement','Jewelry','Kitchen','Music','MusicTracks','OfficeProducts','Shoes','Software','SportingGoods','Toys','VHS','Video','VideoGames','Watches']
 			res = Amazon::Ecs.item_search(keywords.shuffle.first, {search_index: search_index.shuffle.first, item_page: 1, country: 'jp', sort: 'salesrank'})
 			item = res.items.shuffle.first
-			tweet = "今Amazonで人気の商品をご紹介＾＾\r「#{item.get("ItemAttributes/Title")}」\rhttps://www.amazon.co.jp/gp/product/#{item.get("ASIN")}/?tag=kabk128-22"
+			
+			tweet = "今Amazonで人気の商品をご紹介＾＾\r「#{item.get("ItemAttributes/Title")}」\r#{item.get('DetailPageURL')}"
 		else
 			tweet = Tweet.all.shuffle.first.contents
 		end
