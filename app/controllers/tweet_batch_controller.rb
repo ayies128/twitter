@@ -50,7 +50,8 @@ class TweetBatchController < ApplicationController
 				options[:AWS_secret_key] = "Tc14WmgcwRLKGjeYrEKUvrQ175o5G9YHmXW4/aKJ"
 			end
 			keywords = ['健康', 'ファッション', '漫画', 'おもちゃ', 'レディース', 'フィギュア', 'ドラマ', 'PC', 'スマホ', 'メンズ', '筋トレ', '酒', '時計']
-			res = Amazon::Ecs.item_search(keywords.shuffle.first, {item_page: 1, country: 'jp', sort: 'salesrank'})
+			search_index = ['Apparel','Automotive','Baby','Beauty','Books','Classical','DVD','Electronics','ForeignBooks','Grocery','HealthPersonalCare','Hobbies','HomeImprovement','Jewelry','Kitchen','Music','MusicTracks','OfficeProducts','Shoes','Software','SportingGoods','Toys','VHS','Video','VideoGames','Watches']
+			res = Amazon::Ecs.item_search(keywords.shuffle.first, {search_index: search_index.shuffle.first, item_page: 1, country: 'jp', sort: 'salesrank'})
 			item = res.items.shuffle.first
 			tweet = "今Amazonで人気の商品をご紹介＾＾\r「#{item.get("ItemAttributes/Title")}」\rhttps://www.amazon.co.jp/gp/product/#{item.get("ASIN")}/?tag=kabk128-22"
 		else
