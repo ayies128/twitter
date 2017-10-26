@@ -41,8 +41,7 @@ class TweetBatchController < ApplicationController
 	end
 
 	def afiri
-		inin = [1,2,3,4,5,6,7,8,9,10]
-		if inin.shuffle.first > 2
+		begin
 			# Amazon Product Advertising API へのアクセスに必要なキーを設定
 			Amazon::Ecs.configure do |options|
 				options[:associate_tag] = "kabk128-22"
@@ -53,12 +52,10 @@ class TweetBatchController < ApplicationController
 			search_index = ['Apparel','Automotive','Baby','Beauty','Books','Classical','DVD','Electronics','ForeignBooks','Grocery','HealthPersonalCare','Hobbies','HomeImprovement','Jewelry','Kitchen','Music','MusicTracks','OfficeProducts','Shoes','Software','SportingGoods','Toys','VHS','Video','VideoGames','Watches']
 			res = Amazon::Ecs.item_search(keywords.shuffle.first, {search_index: search_index.shuffle.first, item_page: 1, country: 'jp', sort: 'salesrank'})
 			item = res.items.shuffle.first
-			
 			tweet = "今Amazonで人気の商品をご紹介＾＾\r「#{item.get("ItemAttributes/Title")}」\r#{item.get('DetailPageURL')}"
-		else
+		rescue => e
 			tweet = Tweet.all.shuffle.first.contents
 		end
-		puts tweet
 		@twitter.update(tweet)
 	end
 
