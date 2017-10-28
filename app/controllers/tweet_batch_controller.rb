@@ -25,7 +25,7 @@ class TweetBatchController < ApplicationController
 			url = item.get('DetailPageURL')
 			lowest_price = item.get('OfferSummary/LowestNewPrice/FormattedPrice')
 			if title.present? && manufacturer.present? && url.present? && lowest_price.present?
-				tweet = "Amazonで人気の商品をご紹介٩( 'ω' )\r『(#{manufacturer})#{title}』\r最安値：#{lowest_price}\r#{url}"
+				tweet = "Amazonで人気の商品をご紹介٩( 'ω' )\r#{manufacturer}の『#{title}』\r今なら最安値は#{lowest_price}\r#{url}"
 			else
 				tweet = Tweet.all.shuffle.first.contents
 			end
