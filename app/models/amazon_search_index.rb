@@ -1,0 +1,2 @@
+class AmazonSearchIndex < ApplicationRecord
+end

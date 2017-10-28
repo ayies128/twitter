@@ -1,0 +1,2 @@
+class PaapiAccount < ApplicationRecord
+end
