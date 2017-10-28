@@ -10,6 +10,7 @@ class TweetBatchController < ApplicationController
 		end
 
 		loop_count = 1
+		res = nil
 		loop do
 			begin
 				res = Amazon::Ecs.item_search(
