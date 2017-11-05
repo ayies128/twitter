@@ -61,3 +61,9 @@ gem 'amazon-ecs'
 # デバッグ用
 gem 'ruby-debug-ide'
 gem 'debase'
+
+gem 'bootstrap-sass'
+
+gem 'slim-rails'
+
+gem 'jquery-rails'
