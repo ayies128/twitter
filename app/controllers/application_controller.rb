@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 	protect_from_forgery with: :exception
-
+	
 	def initialize
 		require 'twitter'
 		twitter_account = TwitterAccount.find(1)
