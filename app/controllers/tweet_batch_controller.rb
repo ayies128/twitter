@@ -116,7 +116,7 @@ class TweetBatchController < ApplicationController
 			tweet = Tweet.all.shuffle.first.contents
 		end
 		@twitter.update(tweet)
-		render json: {'success': => true}
+		render json: {success: true}
 	end
 
   end
