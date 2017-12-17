@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171028040535) do
+ActiveRecord::Schema.define(version: 20171217091158) do
 
   create_table "amazon_search_indices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -28,8 +28,10 @@ ActiveRecord::Schema.define(version: 20171028040535) do
 
   create_table "search_words", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "フォロー候補検索ワード" do |t|
     t.string "word", limit: 127, null: false
+    t.bigint "amazon_search_index_id"
     t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.timestamp "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.index ["amazon_search_index_id"], name: "index_search_words_on_amazon_search_index_id"
   end
 
   create_table "tweets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
