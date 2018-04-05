@@ -1,5 +1,5 @@
 class TweetBatchController < ApplicationController
-
+	
 	def afiri
 		twitter_account = TwitterAccount.find(1)
 		@twitter = Twitter::REST::Client.new do |config|
@@ -44,10 +44,10 @@ class TweetBatchController < ApplicationController
 		end
 		if res.present?
 			item = res.items.shuffle.first
-			title = item.get('ItemAttributes/Title')
-			manufacturer = item.get('ItemAttributes/Manufacturer')
+			title = HTMLEntities.new.decode(item.get('ItemAttributes/Title'))
+			manufacturer = HTMLEntities.new.decode(item.get('ItemAttributes/Manufacturer'))
 			url = item.get('DetailPageURL')
-			lowest_price = item.get('OfferSummary/LowestNewPrice/FormattedPrice')
+			lowest_price = HTMLEntities.new.decode(item.get('OfferSummary/LowestNewPrice/FormattedPrice'))
 			if title.present?
 				tweet = "Amazonで人気の商品をご紹介٩( 'ω' )\r"
 				tweet << "#{manufacturer}の" if manufacturer.present? 
@@ -107,10 +107,10 @@ class TweetBatchController < ApplicationController
 		end
 		if res.present?
 			item = res.items.shuffle.first
-			title = item.get('ItemAttributes/Title')
-			manufacturer = item.get('ItemAttributes/Manufacturer')
+			title = HTMLEntities.new.decode(item.get('ItemAttributes/Title'))
+			manufacturer = HTMLEntities.new.decode(item.get('ItemAttributes/Manufacturer'))
 			url = item.get('DetailPageURL')
-			lowest_price = item.get('OfferSummary/LowestNewPrice/FormattedPrice')
+			lowest_price = HTMLEntities.new.decode(item.get('OfferSummary/LowestNewPrice/FormattedPrice'))
 			if title.present?
 				tweet = "Amazonで人気の商品をご紹介٩( 'ω' )\r"
 				tweet << "#{manufacturer}の" if manufacturer.present? 
